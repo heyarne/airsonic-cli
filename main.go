@@ -6,6 +6,7 @@ import (
 
   "airsonic-cli/config"
   "airsonic-cli/api/ping"
+  "airsonic-cli/api/scan"
 
   "gopkg.in/urfave/cli.v1"
 )
@@ -78,8 +79,26 @@ func main() {
       Name:    "ping",
       Usage:   "Ping your server",
       Action:  func(ctx *cli.Context) error  {
-         ping.PingAction(conf)
-         return nil
+        ping.PingAction(conf)
+        return nil
+      },
+    },
+    {
+      Name:    "scan",
+      Usage:   "Start a rescan of your server's library",
+      Action:  func(ctx *cli.Context) error  {
+        scan.StartScanAction(conf)
+        return nil
+      },
+      Subcommands: []cli.Command{
+        {
+          Name:  "status",
+          Usage: "Get the scanning status",
+          Action: func(c *cli.Context) error {
+            scan.ScanStatusAction(conf)
+            return nil
+          },
+        },
       },
     },
   }
