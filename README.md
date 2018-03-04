@@ -9,9 +9,6 @@
     <a href="https://github.com/jooola/airsonic-cli/blob/master/LICENSE">
       <img alt="Software License" src="https://img.shields.io/badge/license-GPL--3.0-brightgreen.svg?style=flat-square">
     </a>
-    <a href="https://github.com/jooola/airsonic-cli/issues">
-      <img alt="Issues" src="https://img.shields.io/codeclimate/issues/github/me-and/mdf.svg?style=flat-square">
-    </a>
   </p>
 </p>
 
