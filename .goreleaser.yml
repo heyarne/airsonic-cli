@@ -1,0 +1,50 @@
+# Builds
+builds:
+  - main: main.go
+    binary: airsonic-cli
+    goos:
+      - linux
+      - windows
+    goarch:
+      - amd64
+
+changelog:
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - Merge pull request
+      - Merge branch
+      - Clean
+
+# Archive
+archive:
+  replacements:
+    linux: Linux
+    windows: Windows
+    amd64: x86_64
+  format_overrides:
+    - goos: windows
+      format: zip
+  files:
+  - LICENSE
+  - README.md
+  - CHANGELOG.md
+
+# Release
+release:
+  draft: true
+  prerelease: true
+
+# Package
+nfpm:
+  homepage:  https://github.com/jooola/airsonic-cli/
+  description: A management tool for Subsonic/Airsonic API
+  maintainer: Joola
+  license: GPL-3.0
+  vendor: Airsonic
+  formats:
+    - deb
+    - rpm
+  dependencies:
+    - git
