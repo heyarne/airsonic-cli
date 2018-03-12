@@ -4,6 +4,7 @@ builds:
     binary: airsonic-cli
     goos:
       - linux
+      - darwin
       - windows
     goarch:
       - amd64
@@ -21,6 +22,7 @@ changelog:
 archive:
   replacements:
     linux: Linux
+    darwin: macOS
     windows: Windows
     amd64: x86_64
   format_overrides:
