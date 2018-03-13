@@ -30,35 +30,43 @@ func main() {
     cli.BoolFlag{
       Name:  "verbose, v",
       Usage: "Enable verbose mode",
+      EnvVar: "AIRSONICCLI_VERBOSE",
     },
     cli.StringFlag{
       Name:  "config, c",
       Value: config.CONFIG_PATH,
       Usage: "Load configuration from `<file>`",
+      EnvVar: "AIRSONICCLI_CONFIG_PATH",
     },
     cli.StringFlag{
       Name:  "server, s",
       Usage: "Specify server location `<server>[:<port>]`",
+      EnvVar: "AIRSONICCLI_SERVER",
     },
     cli.StringFlag{
       Name:  "username, u",
       Usage: "Specify user name `<username>`",
+      EnvVar: "AIRSONICCLI_USERNAME",
     },
     cli.StringFlag{
       Name:  "password, p",
       Usage: "Specify user password `<password>`",
+      EnvVar: "AIRSONICCLI_PASSWORD",
     },
     cli.StringFlag{
       Name:  "token, T",
       Usage: "Specify user generated token `<token>`",
+      EnvVar: "AIRSONICCLI_TOKEN",
     },
     cli.StringFlag{
       Name:  "salt, S",
       Usage: "Specify user generated salt `<salt>`",
+      EnvVar: "AIRSONICCLI_SALT",
     },
     cli.StringFlag{
       Name:  "appname, a",
       Usage: "Specify application name`<appname>`",
+      EnvVar: "AIRSONICCLI_APPNAME",
     },
   }
   app.Before = func(ctx *cli.Context) error {
