@@ -25,7 +25,7 @@ type Response struct {
 }
 
 func Get(conf *config.Config, endpoint string, payload string) []byte {
-	u, parErr := url.Parse(config.GetServer(conf) + endpoint + "?" + loadCommonPayload(conf) + payload)
+	u, parErr := url.Parse(config.GetServer(conf) + endpoint + "?" + loadCommonPayload(conf) + "&" + payload)
 	if parErr != nil {
 		log.Fatal(parErr)
 	}

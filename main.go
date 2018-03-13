@@ -6,6 +6,7 @@ import (
 
 	"airsonic-cli/api/ping"
 	"airsonic-cli/api/scan"
+	"airsonic-cli/api/users"
 	"airsonic-cli/config"
 
 	"gopkg.in/urfave/cli.v1"
@@ -105,6 +106,27 @@ func main() {
 					Action: func(c *cli.Context) error {
 						scan.ScanStatusAction(conf)
 						return nil
+					},
+				},
+			},
+		},
+		{
+			Name:  "users",
+			Usage: "User management functionality",
+			Subcommands: []cli.Command{
+				{
+					Name:  "get",
+					Usage: "Get information about <user>",
+					Action: func(c *cli.Context) error {
+						name := c.Args().First()
+						return users.GetUserAction(conf, name)
+					},
+				},
+				{
+					Name:  "list",
+					Usage: "List all users",
+					Action: func(_ *cli.Context) error {
+						return users.ListUsersAction(conf)
 					},
 				},
 			},

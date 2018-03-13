@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"os"
@@ -12,6 +13,12 @@ import (
 
 func InfoMsg(message string)  { fmt.Println("Info:  " + message) }
 func ErrorMsg(message string) { fmt.Println("Error: " + message) }
+
+// taken from https://siongui.github.io/2016/01/30/go-pretty-print-variable/
+func PrettyPrint(v interface{}) {
+	b, _ := json.MarshalIndent(v, "", "  ")
+	fmt.Println(string(b))
+}
 
 func GenerateSalt() string {
 	const alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
