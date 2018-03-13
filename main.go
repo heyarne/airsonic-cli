@@ -15,7 +15,7 @@ func main() {
   conf := &config.Config{}
   app := cli.NewApp()
   app.Name = "airsonic-cli"
-  app.Version = "0.0.1b1"
+  app.Version = "0.0.1b3"
   app.Usage = "management tool for Subsonic/Airsonic API"
   app.UsageText = "Usage needs to be written 0_o"
   cli.VersionFlag = cli.BoolFlag{
