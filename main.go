@@ -34,7 +34,6 @@ func main() {
 		},
 		cli.StringFlag{
 			Name:   "config, c",
-			Value:  config.CONFIGPATH,
 			Usage:  "Load configuration from `<file>`",
 			EnvVar: "AIRSONICCLI_CONFIG_PATH",
 		},

@@ -20,7 +20,7 @@ const APIFORMAT = "json"
 const APIVERSION = "1.15.0"
 
 // CONFIGPATH define the default path where to find the configuration file
-const CONFIGPATH = "config.yml"
+const CONFIGPATH = "$HOME/.airsonic-cli.yml"
 
 // Config is the application configuration structure that can be easily passed trough functions
 type Config struct {
