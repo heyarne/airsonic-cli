@@ -10,11 +10,19 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// APPNAME define the default application name
 const APPNAME = "Airsonic CLI"
-const APIFORMAT = "json"
-const APIVERSION = "1.15.0"
-const CONFIG_PATH = "config.yml"
 
+// APIFORMAT define the default API format to use (should not be changed)
+const APIFORMAT = "json"
+
+// APIVERSION define the default API version to use (should not be changed)
+const APIVERSION = "1.15.0"
+
+// CONFIGPATH define the default path where to find the configuration file
+const CONFIGPATH = "config.yml"
+
+// Config is the application configuration structure that can be easily passed trough functions
 type Config struct {
 	APIVersion string
 	APIFormat  string
@@ -34,6 +42,7 @@ type savedConfig struct {
 	Salt     string `yaml:"salt"`
 }
 
+// LoadConfig allows you to load your configuration from cli.Context and config.Config
 func LoadConfig(conf *Config, ctx *cli.Context) {
 	SetAPIVersion(conf, APIVERSION)
 	SetAPIFormat(conf, APIFORMAT)
@@ -79,8 +88,9 @@ func LoadConfig(conf *Config, ctx *cli.Context) {
 	SetVerbose(conf, ctx.Bool("verbose"))
 }
 
+// ReadConfig allows you to read the configuration from a configuration file
 func ReadConfig(conf *Config) error {
-	file, _ := os.Open(CONFIG_PATH)
+	file, _ := os.Open(CONFIGPATH)
 	decoder := yaml.NewDecoder(file)
 	err := decoder.Decode(conf)
 	if err != nil {
@@ -89,6 +99,7 @@ func ReadConfig(conf *Config) error {
 	return nil
 }
 
+// WriteConfig allows you to write the configuration to a configuration file
 func WriteConfig(conf *Config) error {
 	sconf := &savedConfig{
 		AppName:  GetAppName(conf),
@@ -101,23 +112,53 @@ func WriteConfig(conf *Config) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(CONFIG_PATH, bytes, 0640)
+	return ioutil.WriteFile(CONFIGPATH, bytes, 0640)
 }
 
-func GetAppName(conf *Config) string    { return conf.AppName }
-func GetAPIVersion(conf *Config) string { return conf.APIVersion }
-func GetAPIFormat(conf *Config) string  { return conf.APIFormat }
-func GetServer(conf *Config) string     { return conf.Server }
-func GetUsername(conf *Config) string   { return conf.Username }
-func GetSalt(conf *Config) string       { return conf.Salt }
-func GetToken(conf *Config) string      { return conf.Token }
-func IsVerbose(conf *Config) bool       { return conf.Verbose }
+// GetAppName returns the application name
+func GetAppName(conf *Config) string { return conf.AppName }
 
-func SetAppName(conf *Config, data string)    { conf.AppName = data }
+// GetAPIVersion returns the API version
+func GetAPIVersion(conf *Config) string { return conf.APIVersion }
+
+// GetAPIFormat returns the API format
+func GetAPIFormat(conf *Config) string { return conf.APIFormat }
+
+// GetServer returns the server URL
+func GetServer(conf *Config) string { return conf.Server }
+
+// GetUsername returns the user name
+func GetUsername(conf *Config) string { return conf.Username }
+
+// GetSalt returns the user generated salt
+func GetSalt(conf *Config) string { return conf.Salt }
+
+// GetToken returns the user generated token
+func GetToken(conf *Config) string { return conf.Token }
+
+// IsVerbose returns wether you enabled verbose mode
+func IsVerbose(conf *Config) bool { return conf.Verbose }
+
+// SetAppName allows you to write the application name to the configuration
+func SetAppName(conf *Config, data string) { conf.AppName = data }
+
+// SetAPIVersion allows you to write the API version to the configuration
 func SetAPIVersion(conf *Config, data string) { conf.APIVersion = data }
-func SetAPIFormat(conf *Config, data string)  { conf.APIFormat = data }
-func SetServer(conf *Config, data string)     { conf.Server = data }
-func SetUsername(conf *Config, data string)   { conf.Username = data }
-func SetSalt(conf *Config, data string)       { conf.Salt = data }
-func SetToken(conf *Config, data string)      { conf.Token = data }
-func SetVerbose(conf *Config, data bool)      { conf.Verbose = data }
+
+// SetAPIFormat allows you to write the API format to the configuration
+func SetAPIFormat(conf *Config, data string) { conf.APIFormat = data }
+
+// SetServer allows you to write the server URL to the configuration
+func SetServer(conf *Config, data string) { conf.Server = data }
+
+// SetUsername allows you to write the user name to the configuration
+func SetUsername(conf *Config, data string) { conf.Username = data }
+
+// SetSalt allows you to write the user generated salt to the configuration
+func SetSalt(conf *Config, data string) { conf.Salt = data }
+
+// SetToken allows you to write the user generated token to the configuration
+func SetToken(conf *Config, data string) { conf.Token = data }
+
+// SetVerbose allows you to write the verbose state to the configuration
+func SetVerbose(conf *Config, data bool) { conf.Verbose = data }

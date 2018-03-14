@@ -11,6 +11,7 @@ import (
 	"airsonic-cli/utils"
 )
 
+// Scan define the json subsonic response structure for scan calls
 type Scan struct {
 	SubsonicResponse struct {
 		Status     string `json:"status"`
@@ -22,6 +23,7 @@ type Scan struct {
 	} `json:"subsonic-response"`
 }
 
+// StartScanAction call a scan on the server's API
 func StartScanAction(conf *config.Config) error {
 	if config.IsVerbose(conf) {
 		utils.InfoMsg("Start scan send to " + config.GetServer(conf))
@@ -34,9 +36,10 @@ func StartScanAction(conf *config.Config) error {
 		}
 		return nil
 	}
-	return errors.New("StartScanAction => Exiting...")
+	return errors.New("error while calling startScan enpoint")
 }
 
+// ScanStatusAction call a scan status on the server's API
 func ScanStatusAction(conf *config.Config) error {
 	if config.IsVerbose(conf) {
 		utils.InfoMsg("Get scan status from " + config.GetServer(conf))
@@ -53,5 +56,5 @@ func ScanStatusAction(conf *config.Config) error {
 		utils.InfoMsg("Count    => " + strconv.Itoa(scan.SubsonicResponse.ScanStatus.Count))
 		return nil
 	}
-	return errors.New("ScanStatusAction => Exiting...")
+	return errors.New("error while calling getScanStatus enpoint")
 }

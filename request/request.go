@@ -13,6 +13,7 @@ import (
 	"airsonic-cli/utils"
 )
 
+// Response define the json subsonic response structure for a basic call
 type Response struct {
 	SubsonicResponse struct {
 		Status  string `json:"status"`
@@ -24,12 +25,12 @@ type Response struct {
 	} `json:"subsonic-response"`
 }
 
+// Get call an endpoint on the server's API
 func Get(conf *config.Config, endpoint string, payload string) []byte {
 	u, parErr := url.Parse(config.GetServer(conf) + endpoint + "?" + loadCommonPayload(conf) + payload)
 	if parErr != nil {
 		log.Fatal(parErr)
 	}
-
 	q := u.Query()
 	q.Set("u", config.GetUsername(conf))
 	q.Set("t", config.GetToken(conf))
@@ -38,22 +39,18 @@ func Get(conf *config.Config, endpoint string, payload string) []byte {
 	q.Set("v", config.GetAPIVersion(conf))
 	q.Set("f", config.GetAPIFormat(conf))
 	u.RawQuery = q.Encode()
-
 	if config.IsVerbose(conf) {
 		utils.InfoMsg("GET " + u.String())
 	}
-
 	req, reqErr := http.NewRequest(http.MethodGet, u.String(), nil)
 	if reqErr != nil {
 		log.Fatal(reqErr)
 	}
-
 	httpClient := http.Client{Timeout: time.Second * 2}
 	res, getErr := httpClient.Do(req)
 	if getErr != nil {
 		log.Fatal(getErr)
 	}
-
 	body, readErr := ioutil.ReadAll(res.Body)
 	if readErr != nil {
 		log.Fatal(readErr)
@@ -61,6 +58,7 @@ func Get(conf *config.Config, endpoint string, payload string) []byte {
 	return body
 }
 
+// CheckResponse check whether the API response is usable or not
 func CheckResponse(conf *config.Config, data []byte) bool {
 	if config.IsVerbose(conf) {
 		utils.InfoMsg("Checking response")
